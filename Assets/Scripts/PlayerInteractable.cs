@@ -10,9 +10,11 @@ public class PlayerInteractable : MonoBehaviour
     public GameObject wallTrailPrefab;
     public bool isRiding = false;
     public bool isCreatingWall = false;
+    private Vector3 wallPosition;
     // Update is called once per frame
     void Update()
     {
+        wallPosition = transform.position - transform.forward * 1.5f + transform.up * 0.6f;
         if(Input.GetKeyDown(KeyCode.E)){
             if(isRiding){
                 isRiding = false;
@@ -34,7 +36,7 @@ public class PlayerInteractable : MonoBehaviour
             isCreatingWall = true;
         }
         if(isCreatingWall){
-            GameObject wall = Instantiate(wallTrailPrefab, transform.position, transform.rotation);
+            GameObject wall = Instantiate(wallTrailPrefab, wallPosition, transform.rotation);
             // her framede duvar üretmesine engel ol
             Destroy(wall, 2.0f);
         }
